@@ -1,0 +1,164 @@
+//import all the GUI classes
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+/**
+ * Simple GUI for StaffList application
+ */
+public class CheckInGUI extends JFrame  implements ActionListener {
+	
+	// The staff list to be searched.
+    private PassengerList passengerList;
+    
+    //The flight list to be searched.
+    private FlightList flightList;
+    
+    //GUI components
+    JTextField result1, result2;
+    JTextField searchField;
+    JTextField bookingRefPanel, lastnamePanel, weightPanel, heightPanel, widthPanel, lengthPanel;
+    JButton search1, search2;
+    JButton enterWeight, enterSize;
+    JScrollPane scrollList;
+    JButton checkIn;
+    JTextArea resultPassengers, resultFees;
+    
+    public CheckInGUI(PassengerList list) {
+        this.passengerList = list;
+        
+        //set up window title
+        setTitle("Welcome to self-service Check in");
+        //disable standard close button
+		setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+		
+		setupNorthPanel();
+		
+        //pack and set visible
+        pack();
+        setVisible(true);
+    }
+    
+    public CheckInGUI(FlightList list) {
+        this.flightList = list;
+        
+        //set up window title
+        setTitle("Welcome to self-service Check in");
+        //disable standard close button
+		setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+ 
+		setupSouthPanel();
+		
+
+        //pack and set visible
+        pack();
+        setVisible(true);
+    }
+    
+    private void setupCenterPanel(){
+    	
+    }
+    
+    private void setupNorthPanel() {
+        //search panel contains label, text field and button FOR PASSENGER LIST
+        JPanel searchPanel1 = new JPanel();
+        searchPanel1.setLayout(new GridLayout(1,3));
+        searchPanel1.add(new JLabel("Enter ID"));   
+        searchField = new JTextField(5);
+        searchPanel1.add(searchField);   
+        search1 = new JButton("Search");  
+        searchPanel1.add(search1);    
+        //specify action when button is pressed
+        search1.addActionListener(this) ;
+        
+        //Set up the area where the results will be displayed.
+        result1= new JTextField(25);     
+        result1.setEditable(false);
+        
+        //set up north panel containing 2 previous areas
+        JPanel northPanel = new JPanel();
+        northPanel.setLayout(new GridLayout(2,1));
+        northPanel.add(searchPanel1);
+        northPanel.add(result1);
+    }
+        
+     private void setupSouthPanel() { 
+     //search panel contains label, text field and button FOR FLIGHT LIST
+     JPanel searchPanel2 = new JPanel();
+     searchPanel2.setLayout(new GridLayout(1,3));
+     searchPanel2.add(new JLabel("Enter Flight reference"));   
+     searchField = new JTextField(5);
+     searchPanel2.add(searchField);   
+     search2 = new JButton("Search");  
+     searchPanel2.add(search2);    
+     //specify action when button is pressed
+     search2.addActionListener(this) ;
+        
+     //Set up the area where the results will be displayed.
+     result2= new JTextField(25);     
+     result2.setEditable(false);
+        
+     //set up south panel containing 2 previous areas
+     Panel southPanel = new JPanel();
+     southPanel.setLayout(new GridLayout(2,1));
+     southPanel.add(searchPanel2);
+     southPanel.add(result2);
+            	
+    }
+    private void setupEastPanel() {
+        	
+    }
+        
+    private void setupWestPanel() {
+        	
+    }
+        
+    private void checkPassenger() {
+    	
+    }
+    
+    private void bagWeightIn() {
+    	
+    }
+    
+    private void bagVolIn() {
+    	
+    }
+    
+    private void feesApplied() {
+    	
+    }
+    
+    private void search1() {
+    	//get search text and search staff list
+    	//setting result text 
+        String searchString = searchField.getText().trim();
+        if(searchString.length() > 0) {
+            Passenger person = passengerList.findById(searchString);
+            if (person != null ) {
+            	result1.setText(person.toString());
+            	//gobf.disableButton(person.getName().getFirstName());
+            }
+            else
+            	result1.setText("not found");
+        }   
+        else
+        	result1.setText("no text entered");
+    }
+    private void search2() {
+    	//get search text and search staff list
+    	//setting result text 
+        String searchString = searchField.getText().trim();
+        if(searchString.length() > 0) {
+            Flight flight = flightList.findByRef(searchString);
+            if (flight != null ) {
+            	result2.setText(flight.toString());
+            	
+            }
+            else
+            	result2.setText("not found");
+        }   
+        else
+        	result2.setText("no text entered");
+    }
+}
