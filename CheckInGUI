@@ -62,26 +62,6 @@ public class CheckInGUI extends JFrame  implements ActionListener {
         pack();
         setVisible(true);
     }
-    
-    private void setupCenterPanel() {
-    	JPanel centerPanel = new JPanel();
-	 	centerPanel.setLayout(new GridLayout(6,2));
-	 	
-	 	centerPanel.add(new JLabel("Enter Luggage Dimensions (cm)"));
-	 	centerPanel.add(new JLabel(""));
-    	        centerPanel.add(new JLabel("Enter height"));
-	 	centerPanel.add(new JLabel(""));
-	 	centerPanel.add(new JLabel("Enter widht"));
-	 	centerPanel.add(new JLabel(""));
-	 	centerPanel.add(new JLabel("Enter length"));
-	 	centerPanel.add(new JLabel(""));
-	 	
-	 	centerPanel.add(new JLabel("Enter Luggage Weight"));
-	 	centerPanel.add(new JLabel(""));
-	 	centerPanel.add(new JLabel("Enter weight (kg)"));
-	 	centerPanel.add(new JLabel(""));
-    }
-    
     private void setupNorthPanel() {
         //search panel contains label, text field and button FOR PASSENGER LIST
     	JPanel northPanel = new JPanel(new GridLayout(2,5));
@@ -126,9 +106,31 @@ public class CheckInGUI extends JFrame  implements ActionListener {
         northPanel.add(result2);
                	
     }
+    private void setupCenterPanel() {
+    	JPanel centerPanel = new JPanel();
+	 	centerPanel.setLayout(new GridLayout(6,2));
+	 	
+	 	centerPanel.add(new JLabel("Enter Luggage Dimensions (cm)"));
+	 	centerPanel.add(new JLabel(""));
+    	        centerPanel.add(new JLabel("Enter height"));
+	 	centerPanel.add(new JLabel(""));
+	 	centerPanel.add(new JLabel("Enter widht"));
+	 	centerPanel.add(new JLabel(""));
+	 	centerPanel.add(new JLabel("Enter length"));
+	 	centerPanel.add(new JLabel(""));
+	 	
+	 	centerPanel.add(new JLabel("Enter Luggage Weight"));
+	 	centerPanel.add(new JLabel(""));
+	 	centerPanel.add(new JLabel("Enter weight (kg)"));
+	 	centerPanel.add(new JLabel(""));
+    }
         
      private void setupSouthPanel() { 
-     
+     JPanel southPanel = new JPanel(new GridLayout(2,5));
+    	
+    	//Check-In  Button
+        checkIn = new JButton("Check in");
+        checkIn.addActionListener(this);
     }
     private void setupEastPanel() {
         	
