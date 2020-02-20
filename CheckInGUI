@@ -119,10 +119,11 @@ public class CheckInGUI extends JFrame  implements ActionListener {
 	 	centerPanel.add(new JLabel("Enter length"));
 	 	centerPanel.add(new JLabel(""));
 	 	
+	 	//JButton ENTER WEIGHT
 	 	centerPanel.add(new JLabel("Enter Luggage Weight"));
 	 	centerPanel.add(new JLabel(""));
-	 	centerPanel.add(new JLabel("Enter weight (kg)"));
-	 	centerPanel.add(new JLabel(""));
+                enterWeight = new JButton("Show Level");
+                enterWeight.addActionListener(this);
     }
         
      private void setupSouthPanel() { 
