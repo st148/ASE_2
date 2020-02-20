@@ -14,7 +14,9 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     //The flight list to be searched.
     private FlightList flightList;
     
-    //GUI components
+    /**
+	 * GUI  components
+	 */
     JTextField result1, result2;
     JTextField searchField;
     JTextField bookingRefPanel, lastnamePanel, weightPanel, heightPanel, widthPanel, lengthPanel;
@@ -24,10 +26,16 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     JButton checkIn;
     JTextArea resultPassengers, resultFees;
     
+    /**
+     * Create the frame with its panels.
+     * @param list	The passenger list to be searched.
+     */
     public CheckInGUI(PassengerList list) {
         this.passengerList = list;
         
-        //set up window title
+        /**
+ 	    *  set up window title
+ 	    */    
         setTitle("Welcome to self-service Check in");
         //disable standard close button
 		setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
@@ -55,12 +63,29 @@ public class CheckInGUI extends JFrame  implements ActionListener {
         setVisible(true);
     }
     
-    private void setupCenterPanel(){
-    	
+    private void setupCenterPanel() {
+    	JPanel centerPanel = new JPanel();
+	 	centerPanel.setLayout(new GridLayout(6,2));
+	 	
+	 	centerPanel.add(new JLabel("Enter Luggage Dimensions (cm)"));
+	 	centerPanel.add(new JLabel(""));
+    	        centerPanel.add(new JLabel("Enter height"));
+	 	centerPanel.add(new JLabel(""));
+	 	centerPanel.add(new JLabel("Enter widht"));
+	 	centerPanel.add(new JLabel(""));
+	 	centerPanel.add(new JLabel("Enter length"));
+	 	centerPanel.add(new JLabel(""));
+	 	
+	 	centerPanel.add(new JLabel("Enter Luggage Weight"));
+	 	centerPanel.add(new JLabel(""));
+	 	centerPanel.add(new JLabel("Enter weight (kg)"));
+	 	centerPanel.add(new JLabel(""));
     }
     
     private void setupNorthPanel() {
         //search panel contains label, text field and button FOR PASSENGER LIST
+    	JPanel northPanel = new JPanel(new GridLayout(2,5));
+    	
         JPanel searchPanel1 = new JPanel();
         searchPanel1.setLayout(new GridLayout(1,3));
         searchPanel1.add(new JLabel("Enter ID"));   
@@ -76,34 +101,34 @@ public class CheckInGUI extends JFrame  implements ActionListener {
         result1.setEditable(false);
         
         //set up north panel containing 2 previous areas
-        JPanel northPanel = new JPanel();
-        northPanel.setLayout(new GridLayout(2,1));
+       
         northPanel.add(searchPanel1);
         northPanel.add(result1);
+        
+      //search panel contains label, text field and button FOR FLIGHT LIST
+        JPanel searchPanel2 = new JPanel();
+        searchPanel2.setLayout(new GridLayout(1,3));
+        searchPanel2.add(new JLabel("Enter Flight reference"));   
+        searchField = new JTextField(5);
+        searchPanel2.add(searchField);   
+        search2 = new JButton("Search");  
+        searchPanel2.add(search2);    
+        //specify action when button is pressed
+        search2.addActionListener(this) ;
+           
+        //Set up the area where the results will be displayed.
+        result2= new JTextField(25);     
+        result2.setEditable(false);
+           
+        //set up north panel containing 2 previous areas
+       
+        northPanel.add(searchPanel2);
+        northPanel.add(result2);
+               	
     }
         
      private void setupSouthPanel() { 
-     //search panel contains label, text field and button FOR FLIGHT LIST
-     JPanel searchPanel2 = new JPanel();
-     searchPanel2.setLayout(new GridLayout(1,3));
-     searchPanel2.add(new JLabel("Enter Flight reference"));   
-     searchField = new JTextField(5);
-     searchPanel2.add(searchField);   
-     search2 = new JButton("Search");  
-     searchPanel2.add(search2);    
-     //specify action when button is pressed
-     search2.addActionListener(this) ;
-        
-     //Set up the area where the results will be displayed.
-     result2= new JTextField(25);     
-     result2.setEditable(false);
-        
-     //set up south panel containing 2 previous areas
-     Panel southPanel = new JPanel();
-     southPanel.setLayout(new GridLayout(2,1));
-     southPanel.add(searchPanel2);
-     southPanel.add(result2);
-            	
+     
     }
     private void setupEastPanel() {
         	
@@ -162,3 +187,4 @@ public class CheckInGUI extends JFrame  implements ActionListener {
         	result2.setText("no text entered");
     }
 }
+
