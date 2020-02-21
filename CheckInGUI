@@ -222,6 +222,14 @@ public class CheckInGUI extends JFrame  implements ActionListener {
 	    		//displayList.setText("Search");
 	    		search2();
 	    	}
+		else if (e.getSource() == enterSize) {
+	    		//displayList.setText("Search");
+	    		bagVolIn();
+    		}
+    		else if (e.getSource() == enterWeight) {
+	    		//displayList.setText("Search");
+	    		bagWeightIn();
+    		}
 		else if (e.getSource() == close) {
 	    		//show 'end of program' before closing file
 	    		JOptionPane.showMessageDialog(this, 
