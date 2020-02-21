@@ -142,7 +142,7 @@ public class CheckInGUI extends JFrame  implements ActionListener {
         close = new JButton("Close");
         close.addActionListener(this);
         
-        //Add buttons to North Pane
+        //Add buttons to South Pane
         southPanel.add(checkIn);
         southPanel.add(close);
         
