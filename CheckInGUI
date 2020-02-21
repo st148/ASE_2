@@ -222,6 +222,16 @@ public class CheckInGUI extends JFrame  implements ActionListener {
 	    		//displayList.setText("Search");
 	    		search2();
 	    	}
+		else if (e.getSource() == close) {
+	    		//show 'end of program' before closing file
+	    		JOptionPane.showMessageDialog(this, 
+	    				 "Do 'end of program' things instead of showing this");
+	    		//get the report with short detail from competitor list
+	    		String report = flightList.getFlightReport();
+	    		//Write the report to a text file 'Allcompetitor_report.txt'
+	    		flightList.readFile("Allflight_report.txt", report);
+	    		System.exit(0);
+	    	}
     		
 	    	
     		
