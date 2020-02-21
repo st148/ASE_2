@@ -2,6 +2,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.Arrays;
 
 /**
  * Simple GUI for StaffList application
@@ -9,7 +10,7 @@ import javax.swing.*;
 public class CheckInGUI extends JFrame  implements ActionListener {
 	
 	// The staff list to be searched.
-    private PassengerList passengerList;
+  //  private PassengerList passengerList;
     
     //The flight list to be searched.
     private FlightList flightList;
@@ -23,29 +24,29 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     JButton search1, search2;
     JButton enterWeight, enterSize;
     JScrollPane scrollList;
-    JButton checkIn;
+    JButton checkIn, close;
     JTextArea resultPassengers, resultFees;
     
     /**
      * Create the frame with its panels.
      * @param list	The passenger list to be searched.
      */
-    public CheckInGUI(PassengerList list) {
-        this.passengerList = list;
+    //public CheckInGUI(PassengerList list) {
+      //  this.passengerList = list;
         
         /**
  	    *  set up window title
  	    */    
-        setTitle("Welcome to self-service Check in");
+       // setTitle("Welcome to self-service Check in");
         //disable standard close button
-		setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+		//setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
 		
-		setupNorthPanel();
+		//setupNorthPanel();
 		
         //pack and set visible
-        pack();
-        setVisible(true);
-    }
+     //   pack();
+     //   setVisible(true);
+   // }
     
     public CheckInGUI(FlightList list) {
         this.flightList = list;
@@ -62,6 +63,27 @@ public class CheckInGUI extends JFrame  implements ActionListener {
         pack();
         setVisible(true);
     }
+    
+    private void setupCenterPanel() {
+    	JPanel centerPanel = new JPanel();
+	 	centerPanel.setLayout(new GridLayout(6,2));
+	 	
+	 	centerPanel.add(new JLabel("Enter Luggage Dimensions (cm)"));
+	 	centerPanel.add(new JLabel(""));
+    	centerPanel.add(new JLabel("Enter height"));
+	 	centerPanel.add(new JLabel(""));
+	 	centerPanel.add(new JLabel("Enter widht"));
+	 	centerPanel.add(new JLabel(""));
+	 	centerPanel.add(new JLabel("Enter length"));
+	 	centerPanel.add(new JLabel(""));
+	 	
+	 	//JButton ENTER WEIGHT
+	 	centerPanel.add(new JLabel("Enter Luggage Weight"));
+	 	centerPanel.add(new JLabel(""));
+        enterWeight = new JButton("Show Level");
+        enterWeight.addActionListener(this);
+    }
+    
     private void setupNorthPanel() {
         //search panel contains label, text field and button FOR PASSENGER LIST
     	JPanel northPanel = new JPanel(new GridLayout(2,5));
@@ -88,7 +110,7 @@ public class CheckInGUI extends JFrame  implements ActionListener {
       //search panel contains label, text field and button FOR FLIGHT LIST
         JPanel searchPanel2 = new JPanel();
         searchPanel2.setLayout(new GridLayout(1,3));
-        searchPanel2.add(new JLabel("Enter Flight reference"));   
+        searchPanel2.add(new JLabel("Enter Flight code, please"));   
         searchField = new JTextField(5);
         searchPanel2.add(searchField);   
         search2 = new JButton("Search");  
@@ -104,35 +126,30 @@ public class CheckInGUI extends JFrame  implements ActionListener {
        
         northPanel.add(searchPanel2);
         northPanel.add(result2);
-               	
-    }
-    private void setupCenterPanel() {
-    	JPanel centerPanel = new JPanel();
-	 	centerPanel.setLayout(new GridLayout(6,2));
-	 	
-	 	centerPanel.add(new JLabel("Enter Luggage Dimensions (cm)"));
-	 	centerPanel.add(new JLabel(""));
-    	        centerPanel.add(new JLabel("Enter height"));
-	 	centerPanel.add(new JLabel(""));
-	 	centerPanel.add(new JLabel("Enter widht"));
-	 	centerPanel.add(new JLabel(""));
-	 	centerPanel.add(new JLabel("Enter length"));
-	 	centerPanel.add(new JLabel(""));
-	 	
-	 	//JButton ENTER WEIGHT
-	 	centerPanel.add(new JLabel("Enter Luggage Weight"));
-	 	centerPanel.add(new JLabel(""));
-                enterWeight = new JButton("Show Level");
-                enterWeight.addActionListener(this);
+        
+        //add north panel to the content pane
+        this.add(northPanel, BorderLayout.NORTH);
     }
         
      private void setupSouthPanel() { 
-     JPanel southPanel = new JPanel(new GridLayout(2,5));
+    	JPanel southPanel = new JPanel(new GridLayout(2,5));
     	
     	//Check-In  Button
         checkIn = new JButton("Check in");
         checkIn.addActionListener(this);
+        
+        //Close Button
+        close = new JButton("Close");
+        close.addActionListener(this);
+        
+        //Add buttons to North Pane
+        southPanel.add(checkIn);
+        southPanel.add(close);
+        
+        //add south panel to the content pane
+        this.add(southPanel, BorderLayout.SOUTH);
     }
+     
     private void setupEastPanel() {
         	
     }
@@ -178,7 +195,7 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     	//setting result text 
         String searchString = searchField.getText().trim();
         if(searchString.length() > 0) {
-            Flight flight = flightList.findByRef(searchString);
+            Flight flight = flightList.findByFlightCode(searchString);
             if (flight != null ) {
             	result2.setText(flight.toString());
             	
@@ -189,5 +206,27 @@ public class CheckInGUI extends JFrame  implements ActionListener {
         else
         	result2.setText("no text entered");
     }
+    
+    /**
+     * Set up the action events
+     * After clicking any action button by the user the
+     * GUI gives an output 
+     */    
+   
+    public void actionPerformed(ActionEvent e) { 
+    	if (e.getSource() == search1) {
+    		//displayList.setText("Search");
+    		search1();
+    	}
+    		else if (e.getSource() == search2) {
+	    		//displayList.setText("Search");
+	    		search2();
+	    	}
+    		
+	    	
+    		
+	    	
+    	}
+	   
+      
 }
-
