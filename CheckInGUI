@@ -2,6 +2,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.TreeSet;
 import java.util.Arrays;
 
 /**
@@ -18,7 +19,7 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     /**
 	 * GUI  components
 	 */
-    JTextField result1, result2;
+    JTextField result1, result2, result3;
     JTextField searchField;
     JTextField bookingRefPanel, lastnamePanel, weightPanel, heightPanel, widthPanel, lengthPanel;
     JButton search1, search2;
@@ -129,6 +130,26 @@ public class CheckInGUI extends JFrame  implements ActionListener {
         
         //add north panel to the content pane
         this.add(northPanel, BorderLayout.NORTH);
+    }
+    private void setupCenterPanel() {
+    	JPanel centerPanel = new JPanel();
+	centerPanel.setLayout(new GridLayout(6,2));
+	
+	//JButton ENTER SIZE
+	centerPanel.add(new JLabel("Enter Luggage Dimensions (cm)"));
+	centerPanel.add(new JLabel(""));
+    	centerPanel.add(new JLabel("Enter height"));
+	centerPanel.add(new JLabel(""));
+	centerPanel.add(new JLabel("Enter widht"));
+	centerPanel.add(new JLabel(""));
+	centerPanel.add(new JLabel("Enter length"));
+	centerPanel.add(new JLabel(""));
+	 	
+	//JButton ENTER WEIGHT
+	centerPanel.add(new JLabel("Enter Luggage Weight"));
+	centerPanel.add(new JLabel(""));
+        enterWeight = new JButton("Enter");
+        enterWeight.addActionListener(this);
     }
         
      private void setupSouthPanel() { 
