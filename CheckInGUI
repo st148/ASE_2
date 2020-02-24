@@ -44,9 +44,20 @@ public class CheckInGUI extends JFrame  implements ActionListener {
         //disable standard close button
 		setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
 		
-		setupNorthPanel();
-		
+
+	setupNorthPanel();
         //pack and set visible
+        pack();
+        setVisible(true);
+        
+        
+        setupCenterPanel();
+        //pack and set visible
+        pack();
+        setVisible(true);
+        
+        setupSouthPanel();
+	//pack and set visible
         pack();
         setVisible(true);
     }
@@ -57,14 +68,9 @@ public class CheckInGUI extends JFrame  implements ActionListener {
         //set up window title
         //setTitle("Welcome to self-service Check in");
         //disable standard close button
-		//setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+       //setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
  
-		//setupSouthPanel();
 		
-
-        //pack and set visible
-        //pack();
-       // setVisible(true);
     //}
     
     private void setupNorthPanel() {
@@ -143,6 +149,9 @@ public class CheckInGUI extends JFrame  implements ActionListener {
 	centerPanel.add(new JLabel("Weight"));
         enterWeight = new JButton("Enter");
         enterWeight.addActionListener(this);
+	
+	//add center panel to the content pane
+        this.add(centerPanel, BorderLayout.CENTER);
     }
         
      private void setupSouthPanel() { 
