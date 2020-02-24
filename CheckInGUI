@@ -6,12 +6,12 @@ import java.util.TreeSet;
 import java.util.Arrays;
 
 /**
- * Simple GUI for StaffList application
+ * GUI for Check In application
  */
 public class CheckInGUI extends JFrame  implements ActionListener {
 	
-	// The staff list to be searched.
-  //  private PassengerList passengerList;
+   // The passenger list to be searched.
+   private PassengerList passengerList;
     
     //The flight list to be searched.
     private FlightList flightList;
