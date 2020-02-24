@@ -23,7 +23,7 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     JTextField searchField1, searchField2;
     JTextField bookingRefPanel, lastnamePanel, weightPanel, heightPanel, widthPanel, lengthPanel;
     JButton search1, search2;
-    JButton enterHeight, enterWidht, enterLength, enterWeight;
+    JButton enterHeight, enterWidht, enterLength, enterWeight, enterSize;
     JScrollPane scrollList;
     JButton checkIn, close;
     JTextArea resultPassengers, resultFees;
