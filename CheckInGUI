@@ -5,17 +5,16 @@ import javax.swing.*;
 import java.util.TreeSet;
 import java.util.Arrays;
 
-/**
- * GUI for Check In  application
- */
 public class CheckInGUI extends JFrame  implements ActionListener {
 	
-    //The flight list to be searched.
-    private FlightList allFlights;
     
-    // The passenger list to be searched.
-    private PassengerList allPassengers;
-    
+    //The flight and passenger lists to be searched.
+    private FlightList flightList;
+    private PassengerList passengerList;
+    private Passenger foundPassenger;
+    private double fee1;
+    private double fee2;
+    private boolean cIn;
     /**
 	 * GUI  components
 	 */
@@ -23,65 +22,43 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     JTextField searchField1, searchField2;
     JTextField bookingRefPanel, lastnamePanel, weightPanel, heightPanel, widthPanel, lengthPanel;
     JButton search1, search2;
-    JButton enterHeight, enterWidht, enterLength, enterWeight, enterSize;
+    JButton enterVolume, enterWeight;
     JScrollPane scrollList;
     JButton checkIn, close;
     JTextArea resultPassengers, resultFees;
     
-    /**
-     * Create the frame with its panels.
-     * @param list	The passenger list to be searched.
-     */
-    public CheckInGUI(PassengerList plist, FlightList flist) {
-        this.allPassengers = plist;
-        this.allFlights = flist;
+    
+    public CheckInGUI(FlightList flist, PassengerList plist) {
+        this.flightList = flist;
+        this.passengerList = plist;
         
-        /**
- 	    *  set up window title
- 	    */    
+        //set up window title
         setTitle("Welcome to self-service Check in");
-        
         //disable standard close button
 		setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+ 
+		setupSouthPanel();
+		setupCenterPanel();
+		setupNorthPanel();
 		
 
-	setupNorthPanel();
         //pack and set visible
-        pack();
-        setVisible(true);
-        
-        
-        setupCenterPanel();
-        //pack and set visible
-        pack();
-        setVisible(true);
-        
-        setupSouthPanel();
-	//pack and set visible
         pack();
         setVisible(true);
     }
     
-    //public CheckInGUI(FlightList list) {
-      //  this.allFlights = list;
-        
-        //set up window title
-        //setTitle("Welcome to self-service Check in");
-        //disable standard close button
-       //setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
- 
-		
-    //}
-    
     private void setupNorthPanel() {
         //search panel contains label, text field and button FOR PASSENGER LIST
     	JPanel northPanel = new JPanel(new GridLayout(2,5));
-    
+    	
         JPanel searchPanel1 = new JPanel();
-        searchPanel1.setLayout(new GridLayout(1,3));
-        searchPanel1.add(new JLabel("Enter full name"));   
+        searchPanel1.setLayout(new GridLayout(1,5));
+        searchPanel1.add(new JLabel("Booking Reference:"));   
         searchField1 = new JTextField(5);
-        searchPanel1.add(searchField1);   
+        searchPanel1.add(searchField1);
+        searchPanel1.add(new JLabel("Last Name:",SwingConstants.RIGHT));
+        searchField2 = new JTextField(5);
+        searchPanel1.add(searchField2);
         search1 = new JButton("Search");  
         searchPanel1.add(search1);    
         //specify action when button is pressed
@@ -96,62 +73,61 @@ public class CheckInGUI extends JFrame  implements ActionListener {
         northPanel.add(searchPanel1);
         northPanel.add(result1);
         
-      //search panel contains label, text field and button FOR FLIGHT LIST
-        JPanel searchPanel2 = new JPanel();
-        searchPanel2.setLayout(new GridLayout(1,3));
-        searchPanel2.add(new JLabel("Enter Flight code, please"));   
-        searchField2 = new JTextField(5);
-        searchPanel2.add(searchField2);   
-        search2 = new JButton("Search");  
-        searchPanel2.add(search2);    
-        //specify action when button is pressed
-        search2.addActionListener(this) ;
-           
-        //Set up the area where the results will be displayed.
-        result2= new JTextField(25);     
-        result2.setEditable(false);
-           
-        //set up north panel containing 2 previous areas
-       
-        northPanel.add(searchPanel2);
-        northPanel.add(result2);
-        
         //add north panel to the content pane
         this.add(northPanel, BorderLayout.NORTH);
     }
+    
+    
     private void setupCenterPanel() {
+    	
+    	
+    	//Set Volume Panel
+    	JPanel volumePanel = new JPanel();
+    	volumePanel.setLayout(new GridLayout(3,3));
+    	volumePanel.add(new JLabel("Height (cm):",SwingConstants.RIGHT));
+    	heightPanel = new JTextField(5);
+    	volumePanel.add(heightPanel);
+    	volumePanel.add(new JLabel(""));
+    	volumePanel.add(new JLabel("Width (cm):",SwingConstants.RIGHT));
+    	widthPanel = new JTextField(5);
+    	volumePanel.add(widthPanel);
+    	enterVolume = new JButton("Enter Dimensions");
+    	enterVolume.addActionListener(this);
+    	volumePanel.add(enterVolume);
+    	volumePanel.add(new JLabel("Length (cm):",SwingConstants.RIGHT));
+    	lengthPanel = new JTextField(5);
+    	volumePanel.add(lengthPanel);
+    	//volumePanel.add(new JLabel(""));
+
+
+    	//Set Weight Panel
+    	JPanel wPanel = new JPanel();
+    	wPanel.setLayout(new GridLayout(1,3));
+    	wPanel.add(new JLabel("Weight (kg):", SwingConstants.RIGHT));
+    	weightPanel = new JTextField(5);
+    	wPanel.add(weightPanel);
+    	enterWeight = new JButton("Enter Weight");
+    	enterWeight.addActionListener(this);
+    	wPanel.add(enterWeight);
+    	
+    	//Setup main Center Panel
     	JPanel centerPanel = new JPanel();
-	centerPanel.setLayout(new GridLayout(6,2));
-	
-	//JButton ENTER SIZE
-	centerPanel.add(new JLabel("Enter Luggage Dimensions (cm)"));
-	centerPanel.add(new JLabel(""));
-	
-    	centerPanel.add(new JLabel("Height"));
-	enterHeight = new JButton("Enter");
-        enterHeight.addActionListener(this);
-	centerPanel.add(new JLabel(""));
-	
-	centerPanel.add(new JLabel("Widht"));
-	enterWidht = new JButton("Enter");
-        enterWidht.addActionListener(this);
-	centerPanel.add(new JLabel(""));
-	
-	centerPanel.add(new JLabel("Length"));
-	enterLength = new JButton("Enter");
-        enterLength.addActionListener(this);
-	centerPanel.add(new JLabel(""));
-	 	
-	//JButton ENTER WEIGHT
-	centerPanel.add(new JLabel("Enter Luggage Weight (kg)"));
-	centerPanel.add(new JLabel(""));
-	
-	centerPanel.add(new JLabel("Weight"));
-        enterWeight = new JButton("Enter");
-        enterWeight.addActionListener(this);
-	
-	//add center panel to the content pane
+    	centerPanel.setLayout(new GridLayout(6,1));
+    	centerPanel.add(new JLabel("Enter Baggage Dimensions",SwingConstants.CENTER));
+    	centerPanel.add(volumePanel);
+        result2= new JTextField(25);     
+        result2.setEditable(false);
+    	centerPanel.add(result2);
+        centerPanel.add(new JLabel("Enter Baggage Weight", SwingConstants.CENTER));
+        centerPanel.add(wPanel);
+        result3= new JTextField(25);     
+        result3.setEditable(false);
+        centerPanel.add(result3);
+        
+        //Add Panel to Layout        
         this.add(centerPanel, BorderLayout.CENTER);
+    
+    
     }
         
      private void setupSouthPanel() { 
@@ -173,62 +149,134 @@ public class CheckInGUI extends JFrame  implements ActionListener {
         this.add(southPanel, BorderLayout.SOUTH);
     }
      
-    private void setupEastPanel() {
-        	
-    }
-        
-    private void setupWestPanel() {
-        	
-    }
-        
-    private void checkPassenger() {
-    	
-    }
-    
-    private void bagWeightIn() {
-    	
-    }
-    
-    private void bagVolIn() {
-    	
-    }
-    
-    private void feesApplied() {
-    	
-    }
-    
-    private void search1() {
+     
+     private void bagVolIn() {
+    	 String heightString = heightPanel.getText().trim();
+    	 String widthString = widthPanel.getText().trim();
+    	 String lengthString = lengthPanel.getText().trim();
+    	 
+    	 if (foundPassenger != null) {
+    		 if (heightString.length() > 0 && widthString.length() > 0 && lengthString.length() > 0) {
+    			 try {
+    				 double height = Double.parseDouble(heightString);
+    				 double width = Double.parseDouble(widthString);
+    				 double length = Double.parseDouble(lengthString);
+    			 
+    				 double volume = height * width * length/1000000;
+    				 foundPassenger.setBagVolume(volume);
+    				 
+    				 if (volume <= 1.2) {
+    					 fee1 = 0;
+    					 result2.setText("Baggage volume within limits. No oversize fee added.");
+    				 }
+    				 else {
+    					 fee1= 49.99;
+    					 
+    					 result2.setText("Baggage volume exceeded, £49.99 fee applied.");   				
+    				 }
+    			 
+    			 }
+    			 catch (NumberFormatException nfe) {
+    				 result2.setText("Please give a valid number for all measurements.");
+    			 }
+    		 }
+    		 else {
+    			 result2.setText("Missing baggage measurements.");
+    		 }
+    	 }
+    	 else {
+    		 result2.setText("Please enter passenger details.");
+    	 }
+    	 
+    	 
+     }
+     
+     private void bagWeightIn() {
+    	 String weightString = weightPanel.getText().trim();
+
+    	 if (foundPassenger != null) {
+    		 if (weightString.length() > 0) {
+    			 try {
+    				 double weight = Double.parseDouble(weightString);
+
+    				 foundPassenger.setBagVolume(weight);
+    				 
+    				 if (weight <= 23) {
+    					 fee2 = 0;
+    					 result3.setText("Baggage weight within limits. No overweight fee added.");
+    				 }
+    				 else {
+    					 fee2= 99.99;
+    					 result3.setText("Baggage weight exceeded, £99.99 fee applied.");   				
+    				 }
+    			 
+    			 }
+    			 catch (NumberFormatException nfe) {
+    				 result3.setText("Please give a valid number for the weight.");
+    			 }
+    		 }
+    		 else {
+    			 result3.setText("Weight not entered.");
+    		 }
+    	 }
+    	 else {
+    		 result3.setText("Please enter passenger details.");
+    	 }
+     }
+  
+    private void search() {
     	//get search text and search staff list
     	//setting result text 
-        String searchString = searchField1.getText().trim();
-        if(searchString.length() > 0) {
-            Passenger person = allPassengers.findById(searchString);
+        String searchString1 = searchField1.getText().trim();
+        String searchString2 = searchField2.getText().trim();
+        
+        if(searchString1.length() > 0 && searchString2.length() > 0) {
+            Passenger person = passengerList.findPassenger(searchString1, searchString2);
             if (person != null ) {
-            	result1.setText(person.toString());
+            	if (person.getCheckedIn() == false) {
+            		String fCode = person.getFlightCode(); 	
+            		String destination = flightList.findByFlightCode(fCode).getDestination();
+            		result1.setText("Passenger: " + person.getPassengerName().getFullName()+  ". Flight " + fCode + ". Destination: " + destination + ".");
+            		foundPassenger = person;
+            	} else {
+            		result1.setText("Passenger already checked in");
+            		searchField1.setText("");
+            		searchField2.setText("");
+            		foundPassenger = null;
+            	}
             	//gobf.disableButton(person.getName().getFirstName());
-            }
-            else
-            	result1.setText("not found");
-        }   
-        else
-        	result1.setText("no text entered");
+            } else
+            	result1.setText("Passenger not found.");
+        } else if (searchString1.length() == 0 && searchString2.length() > 0) {
+        	result1.setText("No Booking Reference given.");
+        } else if (searchString1.length() > 0 && searchString2.length() == 0) {
+        	result1.setText("No Last Name given.");
+        } else
+        	result1.setText("Please enter Booking Reference and Last Name.");
     }
-    private void search2() {
-    	//get search text and search staff list
-    	//setting result text 
-        String searchString = searchField2.getText().trim();
-        if(searchString.length() > 0) {
-            Flight flight = allFlights.findByFlightCode(searchString);
-            if (flight != null ) {
-            	result2.setText(flight.toString());
-            	
-            }
-            else
-            	result2.setText("not found");
-        }   
-        else
-        	result2.setText("no text entered");
+    
+    private void checkIn() {
+    	foundPassenger.setFee(fee1+fee2);
+    	foundPassenger.checkIn();
+    	if (fee1+fee2 == 0) {
+    		result3.setText("Passenger correctly checked in with no additional fees. Have an excellent flight!");
+    	}
+    	else {
+    		result3.setText("Passenger correctly checked in with a total fee of: £" + (fee1+fee2) + ". Have an excellent flight!");
+    	}
+    	result1.setText("");
+    	result2.setText("");
+    	searchField1.setText("");
+    	searchField2.setText("");
+    	heightPanel.setText("");
+    	widthPanel.setText("");
+    	lengthPanel.setText("");
+    	weightPanel.setText("");
     }
+    
+
+    
+
     
     /**
      * Set up the action events
@@ -239,31 +287,50 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     public void actionPerformed(ActionEvent e) { 
     	if (e.getSource() == search1) {
     		//displayList.setText("Search");
-    		search1();
+    		search();
+    		result2.setText("");
+    		result3.setText("");
     	}
-    		else if (e.getSource() == search2) {
-	    		//displayList.setText("Search");
-	    		search2();
-	    	}
-		else if (e.getSource() == enterSize) {
-	    		//displayList.setText("Search");
-	    		bagVolIn();
-    		}
-    		else if (e.getSource() == enterWeight) {
-	    		//displayList.setText("Search");
-	    		bagWeightIn();
-    		}
+		else if (e.getSource() == enterVolume) {
+	    	//displayList.setText("Search");
+	    	bagVolIn();
+    	} 
+    	else if (e.getSource() == enterWeight) {
+	    	//displayList.setText("Search");
+	    	bagWeightIn();
+    	}
+    	else if (e.getSource() == checkIn) {
+        	String heightString = heightPanel.getText().trim();
+       	 	String widthString = widthPanel.getText().trim();
+       	 	String lengthString = lengthPanel.getText().trim();
+       	 	String weightString = weightPanel.getText().trim();
+       	 
+        	if (foundPassenger != null && heightString.length() > 0 && widthString.length() > 0 && lengthString.length() > 0 && weightString.length() > 0) {
+        		checkIn();
+        	}
+        	else {
+        		result3.setText("Check In failed");
+        	}
+    	}
+    	else if (e.getSource() == close) {
+    		flightList.writeFlightReport("FlightReport.txt");
+    		JOptionPane.showMessageDialog(this, 
+    				 "FlightReport.txt was successfully created.");
+    		System.exit(0);
+    	}
+    	
+    	/*
 		else if (e.getSource() == close) {
 	    		//show 'end of program' before closing file
 	    		JOptionPane.showMessageDialog(this, 
 	    				 "Do 'end of program' things instead of showing this");
 	    		//get the report with short detail from competitor list
-	    		String report = allFlights.getFlightReport();
+	    		String report = flightList.getFlightReport();
 	    		//Write the report to a text file 'Allcompetitor_report.txt'
-	    		allFlights.readFile("Allflight_report.txt", report);
+	    		flightList.readFile("Allflight_report.txt", report);
 	    		System.exit(0);
 	    	}
-    		
+    		*/
 	    	
     		
 	    	
