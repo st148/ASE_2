@@ -165,7 +165,7 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     				 double volume = height * width * length/1000000;
     				 foundPassenger.setBagVolume(volume);
     				 
-    				 if (volume <= 1.2) {
+    				 if (volume <= 0.3) {
     					 fee1 = 0;
     					 result2.setText("Baggage volume within limits. No oversize fee added.");
     				 }
@@ -201,7 +201,7 @@ public class CheckInGUI extends JFrame  implements ActionListener {
 
     				 foundPassenger.setBagVolume(weight);
     				 
-    				 if (weight <= 23) {
+    				 if (weight <= 20) {
     					 fee2 = 0;
     					 result3.setText("Baggage weight within limits. No overweight fee added.");
     				 }
