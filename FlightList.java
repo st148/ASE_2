@@ -97,17 +97,19 @@ public class FlightList {
 	}
 	
 	public String getFlightDetails() {
-		String result= "Flight     Passengers Checked In     Total Baggage Volume     Total Baggage Weight           Observations\n";
+		String result= "Flight     Passengers Checked In     Total Baggage Volume     Total Baggage Weight     Total Fees Collected      Observations\n";
 		result += System.lineSeparator();
 		for (Flight f : flightList) {
 			double totalVolume= allPassengers.getVolumetByFlight(f.getFlightCode());
 			double totalWeight = allPassengers.getWeightByFlight(f.getFlightCode());
+			double totalFee = allPassengers.getFeesByFlight(f.getFlightCode());
 			String observations;
 			
 			result += String.format("%-20s", f.getFlightCode());
 			result += String.format("%-26s", allPassengers.countCheckedInByFlight(f.getFlightCode()));
 			result += String.format("%-26s", totalVolume);
-			result += String.format("%-13s", totalWeight);
+			result += String.format("%-23s", totalWeight);
+			result += String.format("%-13s", totalFee);
 
 			if (totalVolume > f.getBagVolCap() && totalWeight > f.getBagWeightCap()) {
 				observations = "Maximum volume and weight exceeded!";
