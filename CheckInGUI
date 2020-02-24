@@ -6,15 +6,15 @@ import java.util.TreeSet;
 import java.util.Arrays;
 
 /**
- * GUI for Check In application
+ * GUI for Check In  application
  */
 public class CheckInGUI extends JFrame  implements ActionListener {
 	
-   // The passenger list to be searched.
-   private PassengerList passengerList;
-    
     //The flight list to be searched.
-    private FlightList flightList;
+    private FlightList allFlights;
+    
+    // The passenger list to be searched.
+    private PassengerList allPassengers;
     
     /**
 	 * GUI  components
@@ -32,43 +32,45 @@ public class CheckInGUI extends JFrame  implements ActionListener {
      * Create the frame with its panels.
      * @param list	The passenger list to be searched.
      */
-    //public CheckInGUI(PassengerList list) {
-      //  this.passengerList = list;
+    public CheckInGUI(PassengerList plist, FlightList flist) {
+        this.allPassengers = plist;
+        this.allFlights = flist;
         
         /**
  	    *  set up window title
  	    */    
-       // setTitle("Welcome to self-service Check in");
-        //disable standard close button
-		//setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
-		
-		//setupNorthPanel();
-		
-        //pack and set visible
-     //   pack();
-     //   setVisible(true);
-   // }
-    
-    public CheckInGUI(FlightList list) {
-        this.flightList = list;
-        
-        //set up window title
         setTitle("Welcome to self-service Check in");
+        
         //disable standard close button
 		setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
- 
-		setupSouthPanel();
 		
-
+		setupNorthPanel();
+		
         //pack and set visible
         pack();
         setVisible(true);
     }
     
+    //public CheckInGUI(FlightList list) {
+      //  this.allFlights = list;
+        
+        //set up window title
+        //setTitle("Welcome to self-service Check in");
+        //disable standard close button
+		//setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+ 
+		//setupSouthPanel();
+		
+
+        //pack and set visible
+        //pack();
+       // setVisible(true);
+    //}
+    
     private void setupNorthPanel() {
         //search panel contains label, text field and button FOR PASSENGER LIST
     	JPanel northPanel = new JPanel(new GridLayout(2,5));
-    	
+    
         JPanel searchPanel1 = new JPanel();
         searchPanel1.setLayout(new GridLayout(1,3));
         searchPanel1.add(new JLabel("Enter ID"));   
@@ -191,7 +193,7 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     	//setting result text 
         String searchString = searchField1.getText().trim();
         if(searchString.length() > 0) {
-            Passenger person = passengerList.findById(searchString);
+            Passenger person = allPassengers.findById(searchString);
             if (person != null ) {
             	result1.setText(person.toString());
             	//gobf.disableButton(person.getName().getFirstName());
@@ -207,7 +209,7 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     	//setting result text 
         String searchString = searchField2.getText().trim();
         if(searchString.length() > 0) {
-            Flight flight = flightList.findByFlightCode(searchString);
+            Flight flight = allFlights.findByFlightCode(searchString);
             if (flight != null ) {
             	result2.setText(flight.toString());
             	
@@ -247,9 +249,9 @@ public class CheckInGUI extends JFrame  implements ActionListener {
 	    		JOptionPane.showMessageDialog(this, 
 	    				 "Do 'end of program' things instead of showing this");
 	    		//get the report with short detail from competitor list
-	    		String report = flightList.getFlightReport();
+	    		String report = allFlights.getFlightReport();
 	    		//Write the report to a text file 'Allcompetitor_report.txt'
-	    		flightList.readFile("Allflight_report.txt", report);
+	    		allFlights.readFile("Allflight_report.txt", report);
 	    		System.exit(0);
 	    	}
     		
