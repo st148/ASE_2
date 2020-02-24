@@ -96,5 +96,15 @@ public class PassengerList {
 		}
 		return i;
 	}
+	
+	public double getFeesByFlight(String fcode) {
+		double i=0;
+		for (Passenger p: passengerList ) {
+			if(fcode.contentEquals(p.getFlightCode())) {
+				i=i+p.getFee();
+			}
+		}
+		return i;
+	}
 
 }
