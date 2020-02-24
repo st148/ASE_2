@@ -73,7 +73,7 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     
         JPanel searchPanel1 = new JPanel();
         searchPanel1.setLayout(new GridLayout(1,3));
-        searchPanel1.add(new JLabel("Enter ID"));   
+        searchPanel1.add(new JLabel("Enter full name"));   
         searchField1 = new JTextField(5);
         searchPanel1.add(searchField1);   
         search1 = new JButton("Search");  
