@@ -57,10 +57,10 @@ public class PassengerList {
 			}
 		}
 	
-	public Passenger findPassenger (String bRef, String pName) {
+	public Passenger findPassenger (String bRef, String lName) {
 		for (Passenger p: passengerList) {
 			String cNumS = Integer.toString(p.getBookingReference());
-			if (bRef.equals(cNumS) && pName.equals(p.getPassengerName().getFullName())) {
+			if (bRef.equals(cNumS) && lName.equals(p.getPassengerName().getLastName())) {
 					return p;
 				}
 			}
