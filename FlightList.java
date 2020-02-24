@@ -1,11 +1,18 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class FlightList {
 	
+	private PassengerList allPassengers;
 	//instantiate a TreeSet with Flight
 	TreeSet<Flight> flightList = new TreeSet<Flight>();
+	
+	public FlightList(PassengerList passengerList) {
+		allPassengers = passengerList;
+	}
 	
 	public void add(Flight f) {
 		flightList.add(f);
@@ -29,7 +36,7 @@ public class FlightList {
 				 */					
 
 		   catch (FileNotFoundException fnf){
-					System.out.println( filename + " not found ");
+					System.out.println( filename + " not found " + System.getProperty("user.dir"));
 					System.exit(0);
 		  }
 	  }
@@ -43,6 +50,9 @@ public class FlightList {
 			int maxPCap = Integer.parseInt(parts[3]);
 			double maxWeight = Double.valueOf(parts[4]);
 			double maxVolume = Double.valueOf(parts[5]);
+			
+			Flight f = new Flight(flightCode, distination, carrier, maxPCap, maxWeight, maxVolume);
+			this.add(f);
 				  
 		}
 			catch (ArrayIndexOutOfBoundsException air) {
@@ -65,25 +75,58 @@ public class FlightList {
 	return null;
 	}
 	
-	public String getFlightReport() {
-			String report = "";
-				for (Flight f : flightList) {
-					report += "Flight Code: " + f.getFlightCode() + "\n";
-					report += "Destination: " + f.getDestination() + "\n";
-					report += "Carrier: " + f.getCarrier() + "\n";
-					report += "No. of passengers checked-in: " 
-								+ String.format("%-4d", f.getTotalPassenger(f.getFlightCode())) + "\n";
-					report += "Total Weight of baggage: "
-								+ String.format("%-7.2d", f.getBagsWeight(f.getFlightCode())) + "\n";
-					report += "Total Volume of baggage: "
-								+ String.format("%-7.2d", f.getBagsVol(f.getFlightCode())) + "\n";
-					//report += "Total Excess fee collected: "
-					//			+ String.format("%-7.2d", ??? + "\n");
-					report += "\n";
-				}
-				return report;
+	public void writeFlightReport(String filename) {
+		 FileWriter fw;
+		 try {
+		    fw = new FileWriter(filename);
+		    fw.write("All Flight details:\n");
+		    fw.write(getFlightDetails());
+		 	fw.close();
+		 }
+
+		 
+		 catch (FileNotFoundException fnf){
+			 System.out.println(filename + " not found ");
+			 System.exit(0);
+		 }
+
+		 catch (IOException ioe){
+		    ioe.printStackTrace();
+		    System.exit(1);
+		 }
+	}
+	
+	public String getFlightDetails() {
+		String result= "Flight     Passengers Checked In     Total Baggage Volume     Total Baggage Weight           Observations\n";
+		result += System.lineSeparator();
+		for (Flight f : flightList) {
+			double totalVolume= allPassengers.getVolumetByFlight(f.getFlightCode());
+			double totalWeight = allPassengers.getWeightByFlight(f.getFlightCode());
+			String observations;
+			
+			result += String.format("%-20s", f.getFlightCode());
+			result += String.format("%-26s", allPassengers.countCheckedInByFlight(f.getFlightCode()));
+			result += String.format("%-26s", totalVolume);
+			result += String.format("%-13s", totalWeight);
+
+			if (totalVolume > f.getBagVolCap() && totalWeight > f.getBagWeightCap()) {
+				observations = "Maximum volume and weight exceeded!";
+			}
+			else if (totalVolume <= f.getBagVolCap() && totalWeight > f.getBagWeightCap()){
+				observations = "Maximum baggage weight exceeded!";
+			}
+			else if (totalVolume > f.getBagVolCap() && totalWeight <= f.getBagWeightCap()) {
+				observations = "Maximum baggage volume exceeded!";
+			}
+			else {
+				observations = "";
+			}
+			result += String.format("%-1s", observations);
+			result += System.lineSeparator();
+			
+		}
+		return result;
 	}
 	
 		
 }
-	
