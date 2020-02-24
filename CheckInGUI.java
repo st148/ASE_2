@@ -2,8 +2,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.util.TreeSet;
-import java.util.Arrays;
+
 
 public class CheckInGUI extends JFrame  implements ActionListener {
 	
@@ -33,7 +32,7 @@ public class CheckInGUI extends JFrame  implements ActionListener {
         this.passengerList = plist;
         
         //set up window title
-        setTitle("Welcome to self-service Check in");
+        setTitle("Welcome to Self-Service Check in");
         //disable standard close button
 		setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
  
@@ -199,7 +198,7 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     			 try {
     				 double weight = Double.parseDouble(weightString);
 
-    				 foundPassenger.setBagVolume(weight);
+    				 foundPassenger.setBagWeight(weight);
     				 
     				 if (weight <= 20) {
     					 fee2 = 0;
