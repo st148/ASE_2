@@ -189,7 +189,7 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     private void search1() {
     	//get search text and search staff list
     	//setting result text 
-        String searchString = searchField.getText().trim();
+        String searchString = searchField1.getText().trim();
         if(searchString.length() > 0) {
             Passenger person = passengerList.findById(searchString);
             if (person != null ) {
@@ -205,7 +205,7 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     private void search2() {
     	//get search text and search staff list
     	//setting result text 
-        String searchString = searchField.getText().trim();
+        String searchString = searchField2.getText().trim();
         if(searchString.length() > 0) {
             Flight flight = flightList.findByFlightCode(searchString);
             if (flight != null ) {
