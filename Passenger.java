@@ -58,7 +58,7 @@ public class Passenger implements Comparable<Passenger> {
 	}
 	
 	//Necessary set methods
-	public void setFee(int newFee) {
+	public void setFee(double newFee) {
 		fee = newFee;
 	}
 	public void setBagWeight(double newWeight) {
@@ -66,6 +66,9 @@ public class Passenger implements Comparable<Passenger> {
 	}
 	public void setBagVolume(double newVol) {
 		bagVol = newVol;
+	}
+	public void checkIn() {
+		checkedIn = true;
 	}
 	
 }
