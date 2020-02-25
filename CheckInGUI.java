@@ -165,13 +165,13 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     				 foundPassenger.setBagVolume(volume);
     				 
     				 if (volume <= 0.3) {
-    					 fee1 = 0;
+    					 fee1 = foundPassenger.feeByVol(volume);
     					 result2.setText("Baggage volume within limits. No oversize fee added.");
     				 }
     				 else {
-    					 fee1= 49.99;
-    					 
-    					 result2.setText("Baggage volume exceeded, £49.99 fee applied.");   				
+    					 fee1 = foundPassenger.feeByVol(volume);
+    					 String text1 = "Baggage volume exceeded, £" + fee1 + " fee applied.";
+    					 result2.setText(text1);   				
     				 }
     			 
     			 }
@@ -200,13 +200,14 @@ public class CheckInGUI extends JFrame  implements ActionListener {
 
     				 foundPassenger.setBagWeight(weight);
     				 
-    				 if (weight <= 20) {
-    					 fee2 = 0;
+				 if (weight <= 20) {
+    					 fee2 = foundPassenger.feeByWeight(weight);
     					 result3.setText("Baggage weight within limits. No overweight fee added.");
     				 }
     				 else {
-    					 fee2= 99.99;
-    					 result3.setText("Baggage weight exceeded, £99.99 fee applied.");   				
+    					 fee2 = foundPassenger.feeByWeight(weight);
+    					 String text2 = "Baggage weight exceeded, £" + fee2 + " fee applied.";
+    					 result3.setText(text2);  				
     				 }
     			 
     			 }
