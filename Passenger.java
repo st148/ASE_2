@@ -73,14 +73,24 @@ public class Passenger implements Comparable<Passenger> {
 	public double feeByVol(double vol) {
 		double fee1 = 0;
 		if (vol > 0.3) {
-			fee1 = 5 * (vol - 0.3)/0.05;}
+			if ((vol - 0.3) <= 0.05) {
+				fee1 = 10;
+			}
+			else {
+				fee1 = 10 * (vol - 0.3)/0.05;}
+		}
 		return fee1;
 	}
 	
 	public double feeByWeight (double weight) {
 		double fee2 = 0;
 		if (weight > 20) {
-			fee2 = 10 * (weight - 20);}
+			if ((weight - 20) <= 1) {
+				fee2 = 10;
+			}
+			else {
+				fee2 = 10 * (weight - 20);}
+			}
 		return fee2;
-		}
+	}
 }
