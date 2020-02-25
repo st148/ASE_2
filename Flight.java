@@ -27,19 +27,6 @@ public class Flight implements Comparable<Flight>  {
 	}
 	
 	
-	//Need to Clarify
-	/*
-	//used for HashSets
-	public boolean equals(Object other) {
-		if (other instanceof Flight) {
-			Flight otherFlight = (Flight) other;
-			if (flightCode.equals(otherFlight.flightCode))
-				return true;
-		}
-		return false;
-	}
-	public int hashCode() {return Flight.hashCode();}
-	*/
 	
 	//Get Value
 	public String getFlightCode() { return flightCode;}
@@ -49,14 +36,7 @@ public class Flight implements Comparable<Flight>  {
 	public double getBagWeightCap() {return bagWeightCap;}
 	public double getBagVolCap() {return bagVolCap;}
 	
-/*	Don't know if it is needed.
- * //Set Value
-	public void setBagsWeight(double newBagsWeight) {  bagsWeight = newBagsWeight;	}
-	public void setBagsVol(double newBagsVol) { bagsVol = newBagsVol; }  */	
 
-	//****Not sure if the below methods should be put in FlightList or Flight.
-	
-	//Calculate total number of checked-in passenger
 	
 
 	
