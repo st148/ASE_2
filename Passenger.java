@@ -70,5 +70,17 @@ public class Passenger implements Comparable<Passenger> {
 	public void checkIn() {
 		checkedIn = true;
 	}
+	public double feeByVol(double vol) {
+		double fee1 = 0;
+		if (vol > 0.3) {
+			fee1 = 5 * (vol - 0.3)/0.05;}
+		return fee1;
+	}
 	
+	public double feeByWeight (double weight) {
+		double fee2 = 0;
+		if (weight > 20) {
+			fee2 = 10 * (weight - 20);}
+		return fee2;
+		}
 }
