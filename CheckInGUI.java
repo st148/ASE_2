@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-
+//GUI Frame for FlightList and PassengerList
 public class CheckInGUI extends JFrame  implements ActionListener {
 	
     
@@ -26,7 +26,11 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     JButton checkIn, close;
     JTextArea resultPassengers, resultFees;
     
-    
+    /**
+    *Create the frame with its panels
+    *@param flist The flight list to be searched
+    *@param plist The passenger list to be serarche
+    */
     public CheckInGUI(FlightList flist, PassengerList plist) {
         this.flightList = flist;
         this.passengerList = plist;
@@ -46,6 +50,9 @@ public class CheckInGUI extends JFrame  implements ActionListener {
         setVisible(true);
     }
     
+    /**
+    * Creates the North panel
+    */
     private void setupNorthPanel() {
         //search panel contains label, text field and button FOR PASSENGER LIST
     	JPanel northPanel = new JPanel(new GridLayout(2,5));
@@ -76,7 +83,9 @@ public class CheckInGUI extends JFrame  implements ActionListener {
         this.add(northPanel, BorderLayout.NORTH);
     }
     
-    
+     /**
+    * Creates the Center panel
+    */
     private void setupCenterPanel() {
     	
     	
@@ -128,7 +137,9 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     
     
     }
-        
+      /**
+    * Creates the South panel
+    */   
      private void setupSouthPanel() { 
     	JPanel southPanel = new JPanel(new GridLayout(2,5));
     	
@@ -148,7 +159,11 @@ public class CheckInGUI extends JFrame  implements ActionListener {
         this.add(southPanel, BorderLayout.SOUTH);
     }
      
-     
+     /**
+     *Sets up the method for calculating baggage volume
+     *If the volume is over the limit it shows the applied fee
+     *Catches trying to convert a String to a double
+     */
      private void bagVolIn() {
     	 String heightString = heightPanel.getText().trim();
     	 String widthString = widthPanel.getText().trim();
@@ -190,6 +205,11 @@ public class CheckInGUI extends JFrame  implements ActionListener {
     	 
      }
      
+	/**
+	*Sets up the method for entering the baggage weight
+	*If the weight is over the limit it shows the applied fee
+	*Catches trying to convert a String to double
+	*/
      private void bagWeightIn() {
     	 String weightString = weightPanel.getText().trim();
 
@@ -255,6 +275,10 @@ public class CheckInGUI extends JFrame  implements ActionListener {
         	result1.setText("Please enter Booking Reference and Last Name.");
     }
     
+	/**
+	*Sets the method for checking in
+	*If baggage volume or weigth is exceeded, it shows the total payable fee
+	*/
     private void checkIn() {
     	foundPassenger.setFee(fee1+fee2);
     	foundPassenger.checkIn();
