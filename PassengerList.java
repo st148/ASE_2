@@ -7,6 +7,14 @@ public class PassengerList {
 	TreeSet<Passenger> passengerList = new TreeSet<Passenger>();
 	
 	public void add(Passenger p) {
+		boolean test = false;
+		String bref = p.getFlightCode();
+		Name lName = p.getPassengerName();
+		for (Passenger p1: passengerList) {
+			String cNumS = (p1.getFlightCode();
+			if (bref.equals(cNumS) && lName.equals(p1.getPassengerName())) {
+				test = true;			}
+		} if (test == true) throw new PassengerExeption(p);	
 		passengerList.add(p);
 	}
 	
