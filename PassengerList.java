@@ -6,16 +6,13 @@ public class PassengerList {
 	
 	TreeSet<Passenger> passengerList = new TreeSet<Passenger>();
 	
-	public void add(Passenger p) throws PassengerExeption {
-		boolean test = false;
-		String bref = p.getFlightCode();
-		Name lName = p.getPassengerName();
-		for (Passenger p1: passengerList) {
-			String cNumS = (p1.getFlightCode();
-			if (bref.equals(cNumS) && lName.equals(p1.getPassengerName())) {
-				test = true;			}
-		} if (test == true) throw new PassengerExeption(p);	
-		passengerList.add(p);
+	public void add(Passenger p) throws PassengerException { 
+		 if (passengerList.size() > 0) {
+			for (Passenger p1: passengerList) { 
+				if (p.getPassengerName().getFullName().equals(p1.getPassengerName().getFullName()) && p1.getFlightCode().equals(p.getFlightCode()))  
+				{throw new PassengerException( p.getPassengerName().getFullName() );}
+			}
+		}  passengerList.add(p);	
 	}
 	
 	public void readFile (String filename) {
