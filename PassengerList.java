@@ -15,7 +15,7 @@ public class PassengerList {
 		}  passengerList.add(p);	
 	}
 	
-	public void readFile (String filename) {
+	public void readFile (String filename) throws PassengerException {
 		  try {
 			  char compType = filename.charAt(0);
 			  File f = new File(filename);
@@ -38,7 +38,7 @@ public class PassengerList {
 		  }
 	  }
 	
-	private void processLine(String line, String type) {
+	private void processLine(String line, String type) throws PassengerException {
 		try {
 			String parts [] = line.split(",");
 			int bookingReference = Integer.parseInt(parts[0]);

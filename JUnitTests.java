@@ -9,7 +9,7 @@ public class JUnitTests {
 	FlightList fList = new FlightList(pList);
 
 	@Before
-	public void setUp() {
+	public void setUp() throws PassengerException {
 
 		Boolean ci1 = Boolean.parseBoolean("TRUE");
 		int bref1 = 44850;
@@ -108,6 +108,5 @@ public class JUnitTests {
 		boolean test = expected1 == actual1 ;
 		assertEquals(message1,  Boolean.parseBoolean("TRUE"),  test);
 	}
-
-
-} //System.out.println(pList);
+	
+} 
