@@ -3,4 +3,3 @@ public class PassengerException extends Exception {
 		super("Passenger already on flight: " + e);
 	}
 }
-
