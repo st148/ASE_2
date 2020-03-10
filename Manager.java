@@ -7,7 +7,7 @@ public class Manager {
 		allFlights = new FlightList(allPassengers);
 	}
     
-	public void run() throws PassengerException {
+	public void run() {
 		
 		allFlights.readFile("Flight_mock.csv");
 		allPassengers.readFile("Passenger_mock.csv");

@@ -6,16 +6,11 @@ public class PassengerList {
 	
 	TreeSet<Passenger> passengerList = new TreeSet<Passenger>();
 	
-	public void add(Passenger p) throws PassengerException { 
-		 if (passengerList.size() > 0) {
-			for (Passenger p1: passengerList) { 
-				if (p.getPassengerName().getFullName().equals(p1.getPassengerName().getFullName()) && p1.getFlightCode().equals(p.getFlightCode()))  
-				{throw new PassengerException( p.getPassengerName().getFullName() );}
-			}
-		}  passengerList.add(p);	
+	public void add(Passenger p) { 
+		passengerList.add(p);	
 	}
 	
-	public void readFile (String filename) throws PassengerException {
+	public void readFile (String filename){
 		  try {
 			  char compType = filename.charAt(0);
 			  File f = new File(filename);
@@ -38,7 +33,7 @@ public class PassengerList {
 		  }
 	  }
 	
-	private void processLine(String line, String type) throws PassengerException {
+	private void processLine(String line, String type) {
 		try {
 			String parts [] = line.split(",");
 			int bookingReference = Integer.parseInt(parts[0]);
@@ -72,44 +67,45 @@ public class PassengerList {
 		return null;
 	}
 	
-	public int countCheckedInByFlight(String fcode) {
-		int i=0;
-		for (Passenger p: passengerList) {
-			if(fcode.equals(p.getFlightCode()) && p.getCheckedIn() == true) {
-				i++;
-			}
-		}
-		return i;
-	}
-	
-	public double getWeightByFlight(String fcode) {
-		double i=0;
-		for (Passenger p: passengerList ) {
-			if(fcode.contentEquals(p.getFlightCode())) {
-				i=i+p.getBagWeight();
-			}
-		}
-		return i;
-	}
-	
-	public double getVolumetByFlight(String fcode) {
-		double i=0;
-		for (Passenger p: passengerList ) {
-			if(fcode.contentEquals(p.getFlightCode())) {
-				i=i+p.getBagVolume();
-			}
-		}
-		return i;
-	}
-	
-	public double getFeesByFlight(String fcode) {
-		double i=0;
-		for (Passenger p: passengerList ) {
-			if(fcode.contentEquals(p.getFlightCode())) {
-				i=i+p.getFee();
-			}
-		}
-		return i;
-	}
+	//May move to different class.
+//	public int countCheckedInByFlight(String fcode) {
+//		int i=0;
+//		for (Passenger p: passengerList) {
+//			if(fcode.equals(p.getFlightCode()) && p.getCheckedIn() == true) {
+//				i++;
+//			}
+//		}
+//		return i;
+//	}
+//	
+//	public double getWeightByFlight(String fcode) {
+//		double i=0;
+//		for (Passenger p: passengerList ) {
+//			if(fcode.contentEquals(p.getFlightCode())) {
+//				i=i+p.getBagWeight();
+//			}
+//		}
+//		return i;
+//	}
+//	
+//	public double getVolumetByFlight(String fcode) {
+//		double i=0;
+//		for (Passenger p: passengerList ) {
+//			if(fcode.contentEquals(p.getFlightCode())) {
+//				i=i+p.getBagVolume();
+//			}
+//		}
+//		return i;
+//	}
+//	
+//	public double getFeesByFlight(String fcode) {
+//		double i=0;
+//		for (Passenger p: passengerList ) {
+//			if(fcode.contentEquals(p.getFlightCode())) {
+//				i=i+p.getFee();
+//			}
+//		}
+//		return i;
+//	}
 
 }
