@@ -4,7 +4,7 @@ import java.util.*;
 
 public class PassengerList {
 	
-	TreeSet<Passenger> passengerList = new TreeSet<Passenger>();
+	static TreeSet<Passenger> passengerList = new TreeSet<Passenger>();
 	
 	public void add(Passenger p) { 
 		passengerList.add(p);	
@@ -66,46 +66,50 @@ public class PassengerList {
 			}
 		return null;
 	}
+		
+	public static TreeSet<Passenger> getPassengerList(){
+		return passengerList;
+	}
 	
 	//May move to different class.
-//	public int countCheckedInByFlight(String fcode) {
-//		int i=0;
-//		for (Passenger p: passengerList) {
-//			if(fcode.equals(p.getFlightCode()) && p.getCheckedIn() == true) {
-//				i++;
-//			}
-//		}
-//		return i;
-//	}
-//	
-//	public double getWeightByFlight(String fcode) {
-//		double i=0;
-//		for (Passenger p: passengerList ) {
-//			if(fcode.contentEquals(p.getFlightCode())) {
-//				i=i+p.getBagWeight();
-//			}
-//		}
-//		return i;
-//	}
-//	
-//	public double getVolumetByFlight(String fcode) {
-//		double i=0;
-//		for (Passenger p: passengerList ) {
-//			if(fcode.contentEquals(p.getFlightCode())) {
-//				i=i+p.getBagVolume();
-//			}
-//		}
-//		return i;
-//	}
-//	
-//	public double getFeesByFlight(String fcode) {
-//		double i=0;
-//		for (Passenger p: passengerList ) {
-//			if(fcode.contentEquals(p.getFlightCode())) {
-//				i=i+p.getFee();
-//			}
-//		}
-//		return i;
-//	}
+	public int countCheckedInByFlight(String fcode) {
+		int i=0;
+		for (Passenger p: passengerList) {
+			if(fcode.equals(p.getFlightCode()) && p.getCheckedIn() == true) {
+				i++;
+			}
+		}
+		return i;
+	}
+	
+	public double getWeightByFlight(String fcode) {
+		double i=0;
+		for (Passenger p: passengerList ) {
+			if(fcode.contentEquals(p.getFlightCode())) {
+				i=i+p.getBagWeight();
+			}
+		}
+		return i;
+	}
+	
+	public double getVolumetByFlight(String fcode) {
+		double i=0;
+		for (Passenger p: passengerList ) {
+			if(fcode.contentEquals(p.getFlightCode())) {
+				i=i+p.getBagVolume();
+			}
+		}
+		return i;
+	}
+	
+	public double getFeesByFlight(String fcode) {
+		double i=0;
+		for (Passenger p: passengerList ) {
+			if(fcode.contentEquals(p.getFlightCode())) {
+				i=i+p.getFee();
+			}
+		}
+		return i;
+	}
 
 }
