@@ -4,7 +4,7 @@ import java.util.*;
 
 public class PassengerList {
 	
-	static TreeSet<Passenger> passengerList = new TreeSet<Passenger>();
+	static HashSet<Passenger> passengerList = new HashSet<Passenger>();
 	
 	public void add(Passenger p) { 
 		passengerList.add(p);	
@@ -82,7 +82,7 @@ public class PassengerList {
 		return passengerList.size();
 	}
 		
-	public static TreeSet<Passenger> getPassengerList(){
+	public static HashSet<Passenger> getPassengerList(){
 		return passengerList;
 	}
 	
