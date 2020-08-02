@@ -133,7 +133,7 @@ public class Airport  {
 
 	//creates running thread for every passenger in list
 	public void PassengerListToQueue(){
-		TreeSet<Passenger> passengerList = PassengerList.getPassengerList();
+		HashSet<Passenger> passengerList = PassengerList.getPassengerList();
 		for(Passenger p: passengerList ) {
 			passengerQueue.add(p);
 			String plName = p.getPassengerName().getLastName();
@@ -161,7 +161,7 @@ public class Airport  {
 			
 				message = "Desk " + deskNo + " is serving " + pName;
 				message += ". " + "1 bag of " + passengerQueue.findPassenger(bRef,lName).getBagWeight();
-				message +=	"kg. A baggage fee of £" + passengerQueue.findPassenger(bRef,lName).getFee() +".";
+				message +=	"kg. A baggage fee of Â£" + passengerQueue.findPassenger(bRef,lName).getFee() +".";
 			}
 		}
 		catch (NumberFormatException nfe) {
