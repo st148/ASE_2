@@ -1,7 +1,7 @@
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.util.*;
 
 public class FlightList {
@@ -75,60 +75,22 @@ public class FlightList {
 	return null;
 	}
 	
-	public void writeFlightReport(String filename) {
-		 FileWriter fw;
-		 try {
-		    fw = new FileWriter(filename);
-		    fw.write("All Flight details:\n");
-		    fw.write(getFlightDetails());
-		 	fw.close();
-		 }
-
-		 
-		 catch (FileNotFoundException fnf){
-			 System.out.println(filename + " not found ");
-			 System.exit(0);
-		 }
-
-		 catch (IOException ioe){
-		    ioe.printStackTrace();
-		    System.exit(1);
-		 }
-	}
 	
-	public String getFlightDetails() {
-		String result= "Flight     Passengers Checked In     Total Baggage Volume     Total Baggage Weight     Total Fees Collected      Observations\n";
-		result += System.lineSeparator();
+	
+	public String getFlightDetails(String fcode) {
+		String result= "";
 		for (Flight f : flightList) {
-			double totalVolume= allPassengers.getVolumetByFlight(f.getFlightCode());
-			double totalWeight = allPassengers.getWeightByFlight(f.getFlightCode());
-			double totalFee = allPassengers.getFeesByFlight(f.getFlightCode());
-			String observations;
-			
-			result += String.format("%-20s", f.getFlightCode());
-			result += String.format("%-26s", allPassengers.countCheckedInByFlight(f.getFlightCode()));
-			result += String.format("%-26s", totalVolume);
-			result += String.format("%-23s", totalWeight);
-			result += String.format("%-13s", totalFee);
-
-			if (totalVolume > f.getBagVolCap() && totalWeight > f.getBagWeightCap()) {
-				observations = "Maximum volume and weight exceeded!";
+			if(fcode.equals(f.getFlightCode())) {
+				
+			result += "Flight: "+ f.getFlightCode() + "\n";
+			result += "Distination:" + f.getDestination() + "\n"; 
+			result += "Checked in: " + String.format("%-5s", allPassengers.countCheckedInByFlight(f.getFlightCode()));
+			result += " out of total " + String.format("%-5s", f.getPassCap()) + "\n";
+			double percentage = allPassengers.getVolumetByFlight(f.getFlightCode()) / f.getBagVolCap() * 100;
+			result += "Hold (volume) is " + String.format("%-8s", percentage) + "% full";	
 			}
-			else if (totalVolume <= f.getBagVolCap() && totalWeight > f.getBagWeightCap()){
-				observations = "Maximum baggage weight exceeded!";
-			}
-			else if (totalVolume > f.getBagVolCap() && totalWeight <= f.getBagWeightCap()) {
-				observations = "Maximum baggage volume exceeded!";
-			}
-			else {
-				observations = "";
-			}
-			result += String.format("%-1s", observations);
-			result += System.lineSeparator();
-			
 		}
 		return result;
 	}
-	
-		
+
 }

@@ -66,6 +66,21 @@ public class PassengerList {
 			}
 		return null;
 	}
+	
+	public void removePassenger(String bRefName) {
+		String bRef = (String) bRefName.subSequence(0, 4);
+		String lName = (String) bRefName.substring(5);
+		for (Passenger p: passengerList) {
+			String cNumS = Integer.toString(p.getBookingReference());
+			if (bRef.equals(cNumS) && lName.equals(p.getPassengerName().getLastName())) {
+				passengerList.remove(p);
+				}
+			}
+	}
+	
+	public int getPassengerListSize() {
+		return passengerList.size();
+	}
 		
 	public static TreeSet<Passenger> getPassengerList(){
 		return passengerList;

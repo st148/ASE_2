@@ -1,5 +1,6 @@
 import java.util.Comparator;
 
+
 public class FlightCodeComparator {
 	
 	public int compare(Flight f1, Flight f2) {
@@ -7,3 +8,4 @@ public class FlightCodeComparator {
 
 	}
 }
+

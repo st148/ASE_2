@@ -1,18 +1,30 @@
+
+
 public class Manager {
 	
 	private PassengerList allPassengers;
 	private FlightList allFlights;
-	private Airport airportQueue;
+	private Airport airport;
+	private Log logwrite;
+	private GuiFrame gui;
+
 	
 	public Manager() {
 		allPassengers = new PassengerList();
 		allFlights = new FlightList(allPassengers);
-		airportQueue = new Airport();
+		airport = new Airport();
+		logwrite = new Log();
+		gui = new GuiFrame(airport, allFlights);
+
 	}
     
 	public void run() {
-		allFlights.readFile("Flight_mock.csv");
-		allPassengers.readFile("Passenger_mock.csv");
-		airportQueue.PassengerListToQueue();	
+		logwrite.start();
+		allFlights.readFile("Flight_new.csv");
+		allPassengers.readFile("Passenger_new.csv");
+		airport.useloger(logwrite);
+		airport.PassengerListToQueue();		
+		airport.returnLoger().closeLog();
+		gui.setVisible(true);
 	}
 }

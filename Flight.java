@@ -1,3 +1,4 @@
+
 public class Flight implements Comparable<Flight>  {
 	
 	//instant variables
